@@ -1,0 +1,19 @@
+.head-title {
+    display: inline-block;
+    margin-right: 10px;
+}
+.dt-btn-edit{
+    margin-right:6px;
+}
+
+.dt-btn-delete {
+    margin-right: 6px;
+}
+
+.show-img {
+    background: #eee;
+    padding: 10px;
+    margin-top: 18px;
+    border-radius: 4px;
+}
+

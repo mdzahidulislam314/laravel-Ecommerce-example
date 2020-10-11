@@ -1,0 +1,19 @@
+table{
+    margin-top: 20px;
+}
+.search-results-container table thead tr th{
+    text-align: center;
+}
+
+.search-results-container table tbody tr th{
+    text-align: center;
+    line-height: 3em;
+}
+
+.search-results-container table tbody tr td{
+    text-align: center;
+    line-height: 1em;
+}
+.search-results-container{
+    margin-bottom: 100px;
+}
