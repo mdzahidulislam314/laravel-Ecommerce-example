@@ -1,6 +1,6 @@
 <header class="header header-10 header-intro-clearance">
    <div class="header-top">
-      <div class="container">
+      <div class="container-fluid">
          @php
             use App\Settings;$settings = Settings::all();
              $settingsArr = [];

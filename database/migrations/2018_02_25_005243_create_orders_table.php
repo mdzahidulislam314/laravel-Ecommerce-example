@@ -17,10 +17,12 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('customer_id')->unsigned()->nullable();
             $table->string('billing_email')->nullable();
+            $table->longText('order_note')->nullable();
             $table->integer('order_status')->default(1);
             $table->integer('payment_status')->default(1);
             $table->string('billing_name')->nullable();
             $table->string('billing_address')->nullable();
+            $table->string('shipping_address')->nullable();
             $table->string('billing_city')->nullable();
             $table->string('billing_province')->nullable();
             $table->string('billing_postalcode')->nullable();
@@ -31,7 +33,7 @@ class CreateOrdersTable extends Migration
             $table->integer('billing_subtotal');
             $table->integer('billing_tax');
             $table->integer('billing_total');
-            $table->string('payment_gateway')->default('stripe');
+            $table->string('payment_gateway')->nullable();
             $table->boolean('shipped')->default(false);
             $table->string('error')->nullable();
             $table->timestamps();

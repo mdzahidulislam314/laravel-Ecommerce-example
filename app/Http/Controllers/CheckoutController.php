@@ -31,14 +31,7 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.index');
         }
 
-        $settings = Settings::all();
-        $settingsArr = [];
-        foreach ($settings as $setting) {
-            $settingsArr[$setting->key] = $setting->value;
-        }
-
         return view('checkout')->with([
-            'settings' => $settingsArr,
             'discount' => getNumbers()->get('discount'),
             'newSubtotal' => getNumbers()->get('newSubtotal'),
             'newTax' => getNumbers()->get('newTax'),
@@ -159,12 +152,10 @@ class CheckoutController extends Controller
         $order = Order::create([
             'customer_id' => auth('customer')->user() ? auth('customer')->user()->id : null,
             'billing_name' => $request->name,
-            'billing_address' => $request->address,
-            'billing_city' => $request->city,
-            'billing_province' => $request->province,
-            'billing_postalcode' => $request->postalcode,
-            'billing_phone' => $request->phone,
-            'billing_name_on_card' => $request->name_on_card,
+            'billing_email' => $request->email,
+            'billing_address' => $request->billing_address,
+            'shipping_address' => $request->shipping_address,
+            'billing_phone' => $request->number,
             'billing_discount' => getNumbers()->get('discount'),
             'billing_discount_code' => getNumbers()->get('code'),
             'billing_subtotal' => getNumbers()->get('newSubtotal'),

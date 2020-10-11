@@ -71,7 +71,7 @@ class CartController extends Controller
 
         if ($request->quantity > $product->quantity) {
 
-            return redirect()->route('cart.index')->with('success_message', 'We currently do not have enough items in stock!');
+            return redirect()->route('cart.index')->with('error_message', 'We currently do not have enough items in stock!');
         }
 
         Cart::update($rowId, $request->quantity);
