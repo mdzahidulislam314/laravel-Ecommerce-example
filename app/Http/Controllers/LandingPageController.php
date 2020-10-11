@@ -18,11 +18,13 @@ class LandingPageController extends Controller
     public function index()
     {
         $featureProducts = Product::where('featured', true)->active()->take(8)->inRandomOrder()->get();
+        $randomProducts = Product::active()->inRandomOrder()->get();
         $sliders = Slider::where('status', true)->take(3)->get();
         $categories = Category::all();
 
         $data = [
           'featureProducts' => $featureProducts,
+          'randomProducts' => $randomProducts,
           'categories' => $categories,
           'sliders' => $sliders,
         ];

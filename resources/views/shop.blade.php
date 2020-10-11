@@ -112,11 +112,8 @@
                                 <div class="toolbox-sort">
                                     <label for="sortby">Sort by:</label>
                                     <div class="select-custom">
-                                        <select name="sortby" id="sortby" class="form-control">
-                                            <option value="popularity" selected="selected">Most Popular</option>
-                                            <option value="rating">Most Rated</option>
-                                            <option value="date">Date</option>
-                                        </select>
+                                        <a class="mr-2" href="{{ route('shop.index', ['category'=> request()->category, 'sort' => 'low_high']) }}">Low to High</a> |
+                                        <a class="ml-2" href="{{ route('shop.index', ['category'=> request()->category, 'sort' => 'high_low']) }}">High to Low</a>
                                     </div>
                                 </div>
                                 <!-- End .toolbox-sort -->

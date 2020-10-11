@@ -4,7 +4,12 @@
 @section('title', 'My Profile')
 
 @section('css')
-
+   <style>
+      .table td {
+          padding-top: 8px;
+          padding-bottom: 8px;
+      }
+   </style>
 @stop
 
 @section('main')
@@ -67,36 +72,39 @@
                         <!-- .End .tab-pane -->
 
                         <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-                           @if ($orders->count() > 0)
-                              @foreach ($orders as $order)
-                                 <div class="order-container" style="margin-bottom: 30px">
-                                    <div class="order-header">
-                                       <div class="order-header-items">
-                                          <div>
-                                             <div class="d-inline-block uppercase font-bold"><b>Order ID:</b></div>
-                                             <div class="d-inline-block">{{ $order->id }}</div>
-                                          </div>
-                                          <div>
-                                             <div class="d-inline-block uppercase font-bold"><b>Order Placed:</b></div>
-                                             <div class="d-inline-block">{{ presentDate($order->created_at) }}</div>
-                                          </div>
-                                          <div>
-                                             <div class="d-inline-block uppercase font-bold"><b>Total:</b></div>
-                                             <div class="d-inline-block">{{ presentPrice($order->billing_total) }}</div>
-                                          </div>
-                                       </div>
-                                       <div>
-                                          <div class="order-header-items">
-                                             <div><a href="{{ route('orders.show', $order->id) }}">Views Invoice</a></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              @endforeach
-                           @else
-                              <p>No order has been made yet.</p>
-                              <a href="{{route('shop.index')}}" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
-                           @endif
+                           <div class="row">
+                             <div class="col-lg-12">
+                                @if ($orders->count() > 0)
+                                <table class="table table-hover">
+                                   <thead class="thead-light">
+                                   <tr>
+                                      <th width="25%">Order ID:</th>
+                                      <th width="25%">Order Placed</th>
+{{--                                      <th width="20%">Status</th>--}}
+                                      <th width="30%">Total</th>
+                                      <th width="20%">Action</th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   @foreach ($orders as $order)
+                                   <tr>
+                                      <td>{{ $order->id }}</td>
+                                      <td>{{ presentDate($order->created_at) }}</td>
+{{--                                      <td>{{ $order->statusHtml() }}</td>--}}
+                                      <td>{{ presentPrice($order->billing_total) }}</td>
+                                      <td>
+                                         <a href="{{ route('orders.show', $order->id) }}">Views Invoice</a>
+                                      </td>
+                                   </tr>
+                                   @endforeach
+                                   </tbody>
+                                </table>
+                                @else
+                                   <p>No order has been made yet.</p>
+                                   <a href="{{route('shop.index')}}" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+                                @endif
+                             </div>
+                           </div>
                         </div>
                         <!-- .End .tab-pane -->
 

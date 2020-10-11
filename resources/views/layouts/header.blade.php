@@ -10,8 +10,8 @@
 
          @endphp
          <div class="header-left">
-            <a href="tel:#" class="mr-4"><i class="icon-phone"></i>{{$settingsArr['phone'] ?? ''}}</a>
-            <a href="tel:#"><i class="icon-phone"></i>{{$settingsArr['email'] ?? ''}}</a>
+            <a href="tel:#" class="mr-4">{{$settingsArr['phone'] ?? ''}}</a>
+            <a href="tel:#">{{$settingsArr['email'] ?? ''}}</a>
          </div><!-- End .header-left -->
 
          <div class="header-right">

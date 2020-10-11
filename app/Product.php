@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -71,5 +72,14 @@ class Product extends Model
     public function scopeActive($query)
     {
         return $query->where('is_enable', 1);
+    }
+
+    public function getPrice()
+    {
+        if ($this->spacial_price > 0 && $this->spacial_price !== null){
+            return $this->spacial_price;
+        }else{
+            return $this->price;
+        }
     }
 }

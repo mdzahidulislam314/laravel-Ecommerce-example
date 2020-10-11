@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/site/assets/css/style.css">
     <link rel="stylesheet" href="/site/assets/css/skins/skin-demo-13.css">
     <link rel="stylesheet" href="/site/assets/css/demos/demo-13.css">
+
+    @yield('css')
 </head>
 
 <body>
@@ -56,10 +58,13 @@
 <script src="/site/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="/site/assets/js/jquery.plugin.min.js"></script>
 <script src="/site/assets/js/jquery.countdown.min.js"></script>
+<script src="/site/assets/js/jquery.elevateZoom.min.js"></script>
 
 <!-- Main JS File -->
 <script src="/site/assets/js/main.js"></script>
 <script src="/site/assets/js/demos/demo-13.js"></script>
+
+@yield('script')
 </body>
 
 </html>

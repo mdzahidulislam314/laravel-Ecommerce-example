@@ -126,7 +126,7 @@ class ProductController extends Controller
             unlink($product->image);
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-            Image::make($image)->resize(217,219)->save('./uploads/products/'.$imageName);
+            Image::make($image)->resize(218,220)->save('./uploads/products/'.$imageName);
             $imageLink = './uploads/products/'.$imageName;
         }else{
             $imageLink = $product->image;
@@ -142,7 +142,7 @@ class ProductController extends Controller
 
             foreach ($request->images as $image) {
                 $imagesName = $image->getClientOriginalName();
-                Image::make($image)->resize(217,219)->save('./uploads/products/'.$imagesName);
+                Image::make($image)->resize(1200,1200)->save('./uploads/products/'.$imagesName);
                 $imagesUrl = './uploads/products/'.$imagesName;
                 $files[] = $imagesUrl;
             }
