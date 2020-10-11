@@ -3,10 +3,10 @@
 @section('title', 'Cart')
 
 @section('css')
-    <link rel="stylesheet" href="/css/style.css">
+
 @stop
 
-@section('çontent')
+@section('main')
     <main class="main">
         <div class="page-header text-center" style="background-image: url(&#39;/img/page-header-bg.jpg&#39;)">
             <div class="container">
@@ -30,13 +30,17 @@
             <div class="cart">
                 <div class="container">
                     @if (session()->has('success_message'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success mb-2">
                             {{ session()->get('success_message') }}
                         </div>
                     @endif
-
+                    @if (session()->has('error_message'))
+                        <div class="alert alert-danger mb-2">
+                            {{ session()->get('error_message') }}
+                        </div>
+                    @endif
                     @if(count($errors) > 0)
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger mb-2">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -58,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (Cart::content() as $item)
+                                @foreach ($items as $item)
                                 <tr>
                                 <td class="product-col">
                                     <div class="product">
@@ -76,13 +80,15 @@
                                 <td class="quantity-col">
                                     <form action="{{route('cart.update', $item->rowId)}}" method="POST" id="updateQty">
                                         @csrf
+                                        <input type="hidden" name="id" value="{{$item->model->id}}">
                                         <div class="cart-product-quantity">
                                             <input type="number" name="quantity" class="form-control"
-                                                   value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                                   value="{{$item->qty}}" min="1" max="10" step="1" data-decimals="0" required>
                                         </div>
                                     </form>
                                 </td>
                                 <td class="total-col">{{ presentPrice($item->subtotal) }}</td>
+
                                 <td class="remove-col">
                                     <form action="{{ route('cart.destroy', $item->rowId) }}" method="POST">
                                         {{ csrf_field() }}
@@ -118,12 +124,17 @@
                                 <tbody>
                                 <tr class="summary-subtotal">
                                     <td>Subtotal:</td>
-                                    <td>{{ presentPrice($item->subtotal) }}</td>
+                                    <td>{{ presentPrice(Cart::subtotal()) }}</td>
+                                </tr>
+
+                                <tr class="summary-subtotal">
+                                    <td>Vat:</td>
+                                    <td>{{ presentPrice(Cart::tax()) }}</td>
                                 </tr>
 
                                 <tr class="summary-total">
                                     <td>Total:</td>
-                                    <td>{{ presentPrice($item->subtotal) }}</td>
+                                    <td>{{ presentPrice(Cart::total()) }}</td>
                                 </tr>
                                 </tbody>
                             </table>

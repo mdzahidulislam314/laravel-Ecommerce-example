@@ -25,7 +25,7 @@ class ShopController extends Controller
             });
             $categoryName = optional($categories->where('slug', request()->category)->first())->name;
         } else {
-            $products = Product::where('is_enable', true);
+            $products = Product::where('is_enable', 1);
             $categoryName = 'Shop Now';
         }
 

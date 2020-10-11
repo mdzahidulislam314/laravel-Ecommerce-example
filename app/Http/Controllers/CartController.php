@@ -7,6 +7,7 @@ use App\Product;
 use App\Settings;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
@@ -18,10 +19,12 @@ class CartController extends Controller
      */
     public function index()
     {
-        $mightAlsoLike = Product::mightAlsoLike()->get();
+        $items = Cart::content();
 
+        $mightAlsoLike = Product::mightAlsoLike()->get();
         return view('cart')->with([
             'mightAlsoLike' => $mightAlsoLike,
+            'items' => $items,
             'discount' => getNumbers()->get('discount'),
             'newSubtotal' => getNumbers()->get('newSubtotal'),
             'newTax' => getNumbers()->get('newTax'),
@@ -42,7 +45,7 @@ class CartController extends Controller
         });
 
         if ($duplicates->isNotEmpty()) {
-            return redirect()->route('cart.index')->with('success_message', 'Item is already in your cart!');
+            return redirect()->route('cart.index')->with('error_message', 'Item is already in your cart!');
         }
 
         Cart::add($product->id, $product->name, 1, $product->price)
@@ -64,19 +67,15 @@ class CartController extends Controller
             'quantity' => 'required|numeric|between:1,5'
         ]);
 
-        if ($validator->fails()) {
-            session()->flash('errors', collect(['Quantity must be between 1 and 5.']));
-            return response()->json(['success' => false], 400);
-        }
+        $product = Product::where('id',$request->id)->first();
 
-        if ($request->quantity > $request->productQuantity) {
-            session()->flash('errors', collect(['We currently do not have enough items in stock.']));
-            return response()->json(['success' => false], 400);
+        if ($request->quantity > $product->quantity) {
+
+            return redirect()->route('cart.index')->with('success_message', 'We currently do not have enough items in stock!');
         }
 
         Cart::update($rowId, $request->quantity);
-        session()->flash('success_message', 'Quantity was updated successfully!');
-        return response()->json(['success' => true]);
+        return redirect()->route('cart.index')->with('success_message', 'Quantity was updated successfully!');
     }
 
     /**

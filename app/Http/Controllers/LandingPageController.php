@@ -17,19 +17,13 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-        $products = Product::where('featured', true)->take(8)->inRandomOrder()->get();
+        $featureProducts = Product::where('featured', true)->active()->take(8)->inRandomOrder()->get();
         $sliders = Slider::where('status', true)->take(3)->get();
         $categories = Category::all();
-        $settings = Settings::all();
-        $settingsArr = [];
-        foreach ($settings as $setting) {
-            $settingsArr[$setting->key] = $setting->value;
-        }
 
         $data = [
-          'products' => $products,
+          'featureProducts' => $featureProducts,
           'categories' => $categories,
-          'settings' => $settingsArr,
           'sliders' => $sliders,
         ];
         return view('landing-page',$data);

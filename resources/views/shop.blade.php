@@ -43,7 +43,7 @@
                                     <div class="owl-item cloned" style="width: 930.4px;">
                                         <div class="banner banner-poster">
                                             <a href="#">
-                                                <img src="/admin/assets/images/demos/demo-13/banners/banner-7.jpg" alt="Banner" />
+                                                <img src="/site/assets/images/demos/demo-13/banners/banner-7.jpg" alt="Banner" />
                                             </a>
 
                                             <div class="banner-content banner-content-right">
@@ -59,7 +59,7 @@
                                     <div class="owl-item cloned" style="width: 930.4px;">
                                         <div class="banner banner-poster">
                                             <a href="#">
-                                                <img src="/admin/assets/images/demos/demo-13/banners/banner-8.jpg" alt="Banner" />
+                                                <img src="/site/assets/images/demos/demo-13/banners/banner-8.jpg" alt="Banner" />
                                             </a>
 
                                             <div class="banner-content">
@@ -75,61 +75,13 @@
                                     <div class="owl-item active" style="width: 930.4px;">
                                         <div class="banner banner-poster">
                                             <a href="#">
-                                                <img src="/admin/assets/images/demos/demo-13/banners/banner-7.jpg" alt="Banner" />
+                                                <img src="/site/assets/images/demos/demo-13/banners/banner-7.jpg" alt="Banner" />
                                             </a>
 
                                             <div class="banner-content banner-content-right">
                                                 <h3 class="banner-subtitle"><a href="#">Amazing Value</a></h3>
                                                 <!-- End .banner-subtitle -->
                                                 <h2 class="banner-title"><a href="#">High Performance 4K TVs</a></h2>
-                                                <!-- End .banner-title -->
-                                                <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                                            </div>
-                                            <!-- End .banner-content -->
-                                        </div>
-                                    </div>
-                                    <div class="owl-item" style="width: 930.4px;">
-                                        <div class="banner banner-poster">
-                                            <a href="#">
-                                                <img src="/admin/assets/images/demos/demo-13/banners/banner-8.jpg" alt="Banner" />
-                                            </a>
-
-                                            <div class="banner-content">
-                                                <h3 class="banner-subtitle"><a href="#">Weekend Deal</a></h3>
-                                                <!-- End .banner-subtitle -->
-                                                <h2 class="banner-title"><a href="#">Apple &amp; Accessories</a></h2>
-                                                <!-- End .banner-title -->
-                                                <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                                            </div>
-                                            <!-- End .banner-content -->
-                                        </div>
-                                    </div>
-                                    <div class="owl-item cloned" style="width: 930.4px;">
-                                        <div class="banner banner-poster">
-                                            <a href="#">
-                                                <img src="/admin/assets/images/demos/demo-13/banners/banner-7.jpg" alt="Banner" />
-                                            </a>
-
-                                            <div class="banner-content banner-content-right">
-                                                <h3 class="banner-subtitle"><a href="#">Amazing Value</a></h3>
-                                                <!-- End .banner-subtitle -->
-                                                <h2 class="banner-title"><a href="#">High Performance 4K TVs</a></h2>
-                                                <!-- End .banner-title -->
-                                                <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
-                                            </div>
-                                            <!-- End .banner-content -->
-                                        </div>
-                                    </div>
-                                    <div class="owl-item cloned" style="width: 930.4px;">
-                                        <div class="banner banner-poster">
-                                            <a href="#">
-                                                <img src="/admin/assets/images/demos/demo-13/banners/banner-8.jpg" alt="Banner" />
-                                            </a>
-
-                                            <div class="banner-content">
-                                                <h3 class="banner-subtitle"><a href="#">Weekend Deal</a></h3>
-                                                <!-- End .banner-subtitle -->
-                                                <h2 class="banner-title"><a href="#">Apple &amp; Accessories</a></h2>
                                                 <!-- End .banner-title -->
                                                 <a href="#" class="banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
                                             </div>
@@ -172,36 +124,46 @@
                             <!-- End .toolbox-right -->
                         </div>
                         <!-- End .toolbox -->
-
                         <div class="products mb-3">
                             <div class="row">
+                                @forelse ($products as $product)
                                 <div class="col-6 col-md-4 col-xl-3">
                                     <div class="product">
                                         <figure class="product-media">
                                             <span class="product-label label-new">New</span>
-                                            <a href="product.html">
-                                                <img src="/admin/assets/images/demos/demo-13/products/product-6.jpg" alt="Product image" class="product-image" />
+                                            <a href="{{ route('shop.show', $product->slug) }}">
+                                                <img src="{{ productImage($product->image) }}" alt="Product image" class="product-image" />
                                             </a>
 
                                             <div class="product-action-vertical">
                                                 <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                             </div>
+                                            <form action="{{ route('cart.store',$product) }}" method="POST" id="CartForm">
+                                                {{ csrf_field() }}
 
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
-                                            </div>
-
+                                                <div class="product-action">
+                                                    @if ($product->quantity > 0)
+                                                        <button type="submit" class="btn-product btn-cart"><span>Add to cart</span></button>
+                                                    @else
+                                                        <span class="text-danger text-center"><b>Out of Stock</b></span>
+                                                    @endif
+                                                </div>
+                                            </form>
                                         </figure>
-
                                         <div class="product-body">
                                             <div class="product-cat">
                                                 <a href="#">Appliances</a>
                                             </div>
                                             <!-- End .product-cat -->
-                                            <h3 class="product-title"><a href="product.html">Neato Robotics</a></h3>
+                                            <h3 class="product-title"><a href="product.html">{{$product->name}}</a></h3>
                                             <!-- End .product-title -->
                                             <div class="product-price">
-                                                $399.00
+                                                @if ($product->spacial_price == null)
+                                                    {{ presentPrice($product->price) }}
+                                                @elseif(isset($product->spacial_price))
+                                                    <span class="text-danger">{{ presentPrice($product->spacial_price) }}</span>
+                                                    <span class="text-light ml-3"><s>{{ presentPrice($product->price) }}</s></span>
+                                                @endif
                                             </div>
                                             <!-- End .product-price -->
                                             <div class="ratings-container">
@@ -218,8 +180,10 @@
                                     </div>
                                     <!-- End .product -->
                                 </div>
+                                @empty
+                                    <div style="text-align: left">No items found</div>
+                                @endforelse
                             </div>
-                            <!-- End .row -->
                         </div>
                         <!-- End .products -->
 
@@ -437,7 +401,7 @@
 
                                 <div class="banner-sidebar banner-overlay">
                                     <a href="#">
-                                        <img src="/admin/assets/images/demos/demo-13/banners/banner-6.jpg" alt="banner" />
+                                        <img src="/site/assets/images/demos/demo-13/banners/banner-6.jpg" alt="banner" />
                                     </a>
                                 </div>
                                 <!-- End .banner-ad -->

@@ -57,8 +57,6 @@ Route::group(['prefix' => 'backpanel', 'middleware' => 'admin'], function () {
     ]);
 });
 
-
-
 Route::group(['namespace' => 'Customer\Auth'], function() {
 
     Route::get('/register', 'RegisterController@showRegistrationForm')->name('register');
