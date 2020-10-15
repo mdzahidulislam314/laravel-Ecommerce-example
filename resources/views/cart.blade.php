@@ -3,7 +3,12 @@
 @section('title', 'Cart')
 
 @section('css')
-
+    <style>
+        button#removeCoupon {
+            background: none;
+            border: none;
+        }
+    </style>
 @stop
 
 @section('main')
@@ -103,16 +108,22 @@
                             </tbody>
                         </table>
                         <div class="cart-bottom">
-                            <div class="cart-discount">
-                                <form action="#">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" required="" placeholder="coupon code">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
+                            @if (! session()->has('coupon'))
+                                <form action="{{ route('coupon.store') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <div class="cart-discount">
+                                        <form action="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="coupon_code" id="coupon_code" placeholder="coupon code">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </div>
                                 </form>
-                            </div>
+                            @endif
+
                             <a href="javascript:void(0);" class="btn btn-outline-dark-2"
                                onclick="document.getElementById('updateQty').submit()"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
                         </div>
@@ -122,20 +133,40 @@
                             <h3 class="summary-title">Cart Total</h3>
                             <table class="table table-summary">
                                 <tbody>
+
                                 <tr class="summary-subtotal">
                                     <td>Subtotal:</td>
                                     <td>{{ presentPrice(Cart::subtotal()) }}</td>
                                 </tr>
 
+                                {{--Coupon area Start--}}
+                                @if (session()->has('coupon'))
+                                <tr class="summary-subtotal" style="border-bottom: 2px dashed #39f">
+                                    <td>Discount:({{session()->get('coupon')['name']}})
+                                        <form action="{{ route('coupon.destroy') }}" method="POST" class="d-inline-block">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                            <button type="submit" id="removeCoupon" class="text-danger">X</button>
+                                        </form>
+                                    </td>
+                                    <td class="text-danger">- {{ presentPrice(session()->get('coupon')['discount']) }}</td>
+                                </tr>
+                                <tr class="summary-subtotal">
+                                    <td>New Subtotal:</td>
+                                    <td>{{presentPrice($newSubtotal)}}</td>
+                                </tr>
+                                @endif
+                                {{--Coupon area End--}}
+
                                 <tr class="summary-subtotal">
                                     <td>Vat:</td>
-                                    <td>{{ presentPrice(Cart::tax()) }}</td>
+                                    <td>{{ presentPrice($newTax) }}</td>
+                                </tr>
+                                <tr class="summary-total">
+                                    <td>Grand Total:</td>
+                                    <td>{{ presentPrice($newTotal) }}</td>
                                 </tr>
 
-                                <tr class="summary-total">
-                                    <td>Total:</td>
-                                    <td>{{ presentPrice(Cart::total()) }}</td>
-                                </tr>
                                 </tbody>
                             </table>
                             <a href="{{ route('checkout.index') }}" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>

@@ -14,7 +14,6 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Category Management</h5>
                         </div>
-
                         <div class="list-group list-group-flush" role="tablist">
                             <a class="list-group-item list-group-item-action active" data-toggle="list" href="#category" role="tab" aria-selected="false">
                                 Category

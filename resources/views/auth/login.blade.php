@@ -33,6 +33,21 @@
                             </li>
                         </ul>
                         <div class="tab-content">
+                            @if (session()->has('success_message'))
+                                <div class="alert alert-success">
+                                    {{ session()->get('success_message') }}
+                                </div>
+                            @endif
+
+                            @if(count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="tab-pane fade active show" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
 
                                 <form action="{{ route('login') }}" method="POST">

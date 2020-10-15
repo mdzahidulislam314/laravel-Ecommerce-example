@@ -137,7 +137,6 @@
                                             </div>
                                             <form action="{{ route('cart.store',$product) }}" method="POST" id="CartForm">
                                                 {{ csrf_field() }}
-
                                                 <div class="product-action">
                                                     @if ($product->quantity > 0)
                                                         <button type="submit" class="btn-product btn-cart"><span>Add to cart</span></button>

@@ -45,6 +45,8 @@ Route::group(['prefix' => 'backpanel', 'middleware' => 'admin'], function () {
 
     Route::resource('sliders', 'Admin\SliderController');
 
+    Route::resource('coupons', 'Admin\CouponController');
+
     Route::resource('categories', 'Admin\CategoryController');
     Route::resource('sub-categories', 'Admin\SubcategoryController');
     Route::resource('brands', 'Admin\BrandController');
@@ -63,6 +65,10 @@ Route::group(['namespace' => 'Customer\Auth'], function() {
     Route::post('/register', 'RegisterController@createAdmin')->name('register');
 
     Route::get('/login', 'LoginController@showLoginForm')->name('login');
+    //laravel socialite
+    Route::get('/login/github', 'LoginController@github');
+    Route::get('/login/github/redirect', 'LoginController@githubRedirect');
+
     Route::post('/login', 'LoginController@adminLogin');
     Route::post('/logout', 'LoginController@logout')->name('logout');
 

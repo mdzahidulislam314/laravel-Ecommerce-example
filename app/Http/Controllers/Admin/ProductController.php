@@ -151,12 +151,6 @@ class ProductController extends Controller
             $files = $product->images;
         }
 
-        if (isset($request->featured)) {
-            $product->featured = true;
-        } else {
-            $product->featured = false;
-        }
-
         $product->name = $request->name;
         $product->slug = $slug;
         $product->details = $request->details;

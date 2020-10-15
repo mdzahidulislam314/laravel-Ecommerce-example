@@ -5311,6 +5311,7 @@ p {
     padding-top: 2.8rem;
     padding-bottom: 2.8rem;
     margin-bottom: 0;
+    width: 100%;
 }
 .icon-boxes-container.bg-dark .icon-box-icon {
     color: #666;

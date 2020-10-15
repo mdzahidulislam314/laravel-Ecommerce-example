@@ -179,7 +179,9 @@
                <div class="dropdown-menu @yield('show')">
                   <nav class="side-nav">
                      <ul class="menu-vertical sf-arrows">
-
+                        @php
+                           $categories = \App\Category::where('status',1)->get();
+                        @endphp
                         <li class="megamenu-container">
                            <a class="sf-with-ul" href="#">Electronics</a>
                            <div class="megamenu">
@@ -213,7 +215,9 @@
                               </div>
                            </div>
                         </li>
-                        <li><a href="#">Home Appliances</a></li>
+                        @foreach($categories as $category)
+                        <li><a href="#">{{$category->name}}</a></li>
+                        @endforeach
                      </ul>
                   </nav>
                </div>

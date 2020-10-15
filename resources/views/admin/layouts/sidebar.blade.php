@@ -27,6 +27,12 @@
                 </a>
             </li>
 
+            <li class="sidebar-item @yield('coupons')">
+                <a class="sidebar-link" href="{{ route('coupons.index') }}">
+                    <i class="ion-person-stalker"></i><span class="align-middle">Coupons</span>
+                </a>
+            </li>
+
             <li class="sidebar-item @yield('cus')">
                 <a class="sidebar-link" href="{{ route('customers.index') }}">
                     <i class="ion-person-stalker"></i><span class="align-middle">Customers</span>

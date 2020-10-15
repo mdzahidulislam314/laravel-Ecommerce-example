@@ -60,12 +60,11 @@
                                         <a href="#" class="forgot-link">Forgot Your Password?</a>
                                     </div><!-- End .form-footer -->
                                 </form>
-
                                 <div class="form-choice">
                                     <p class="text-center">or sign in with</p>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <a href="#" class="btn btn-login btn-g">
+                                            <a href="{{url('/login/github')}}" class="btn btn-login btn-g">
                                                 <i class="icon-google"></i>
                                                 Login With Google
                                             </a>
@@ -75,7 +74,8 @@
                                                 <i class="icon-facebook-f"></i>
                                                 Login With Facebook
                                             </a>
-                                        </div><!-- End .col-6 -->
+                                        </div>
+
                                     </div><!-- End .row -->
                                 </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->
@@ -110,7 +110,7 @@
                                         </button>
 
                                     </div><!-- End .form-footer -->
-                                </form>
+
 
                                 <div class="form-choice">
                                     <p class="text-center">or sign in with</p>
@@ -118,7 +118,7 @@
                                         <div class="col-sm-6">
                                             <a href="#" class="btn btn-login btn-g">
                                                 <i class="icon-google"></i>
-                                                Login With Google
+                                                Login With Github
                                             </a>
                                         </div><!-- End .col-6 -->
                                         <div class="col-sm-6">
@@ -126,7 +126,8 @@
                                                 <i class="icon-facebook-f"></i>
                                                 Login With Facebook
                                             </a>
-                                        </div><!-- End .col-6 -->
+                                        </div>
+                                        <!-- End .col-6 -->
                                     </div><!-- End .row -->
                                 </div><!-- End .form-choice -->
                             </div><!-- .End .tab-pane -->

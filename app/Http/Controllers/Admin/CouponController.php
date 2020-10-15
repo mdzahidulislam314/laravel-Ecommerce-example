@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Coupon;
 use App\Http\Controllers\Controller;
-use App\Slider;
 use Illuminate\Http\Request;
-use Image;
 use Session;
 
-
-
-class SliderController extends Controller
+class CouponController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +16,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::all();
-        $data = [
-            'sliders' => $sliders
-        ];
-
-        return view('admin.sliders.index',$data);
+        $coupons = Coupon::all();
+        return view('admin.coupon.index',compact('coupons'));
     }
 
     /**
@@ -46,34 +39,19 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'image' => 'dimensions:width=1920,height=440|image|mimes:jpeg,png,jpg,gif,svg',
+            'code' => 'required',
         ]);
 
-        if ($request->image){
-            $image = $request->file('image');
-            $fileName = $image->getClientOriginalName();
-            Image::make($image)->resize(1920,440)->save('./uploads/sliders/'.$fileName);
+        $couon = new Coupon();
+        $couon->code = $request->code;
+        $couon->status = $request->status;
+        $couon->type = $request->type;
+        $couon->value = $request->value;
+        $couon->percent_off = $request->percent_off;
+        $couon->save();
 
-            $imageUrl = './uploads/sliders/' . $fileName;
-        }
-
-        $slider = new Slider();
-        $slider->title = $request->title;
-        $slider->sub_title = $request->sub_title;
-        $slider->btn_text = $request->btn_text;
-        $slider->btn_text = $request->btn_text;
-        $slider->btn_link = $request->btn_link;
-        $slider->btn_link = $request->btn_link;
-        $slider->spacial_discount = $request->spacial_discount;
-        $slider->orders = $request->orders;
-        $slider->status = $request->status;
-        $slider->image = $imageUrl;
-        $slider->save();
-
+        Session::flash('success', 'Coupon created successfully');
         return redirect()->back();
-
-
     }
 
     /**
@@ -118,16 +96,6 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        $slider = Slider::find($id);
-
-        $image = $slider->image;
-        if (is_file('/uploads/sliders/' . $image)) {
-            unlink($image);
-        }
-
-        $slider->delete();
-        Session::flash('success', 'Slider deleted successfully');
-
-        return redirect()->back();
+        //
     }
 }

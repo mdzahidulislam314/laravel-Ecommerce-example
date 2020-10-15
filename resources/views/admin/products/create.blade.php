@@ -60,20 +60,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="" class="col-sm-2 col-form-label">Product Details</label>
+                                                        <label for="" class="col-sm-2 col-form-label">Short Description</label>
                                                         <div class="col-sm-10">
                                                                 <textarea type="text" class="form-control ckeditor" name="details"  rows="5">
                                                                 </textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="" class="col-sm-2 col-form-label">Product Description</label>
+                                                        <label for="" class="col-sm-2 col-form-label">Long Description</label>
                                                         <div class="col-sm-10">
                                                             <textarea type="text" class="form-control ckeditor" name="description"  rows="3"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Product Quantity</label>
+                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
                                                         <div class="col-sm-10">
                                                             <input type="number" class="form-control" name="quantity" value="{{ old('quantity') }}">
                                                         </div>

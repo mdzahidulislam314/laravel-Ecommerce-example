@@ -9,6 +9,8 @@
       <div class="intro-slider-container">
          <div class="intro-slider owl-carousel owl-simple owl-nav-inside" data-toggle="owl" data-owl-options='{
                         "nav": false,
+                         "loop": true,
+                         "autoplay": true,
                         "responsive": {
                             "992": {
                                 "nav": true

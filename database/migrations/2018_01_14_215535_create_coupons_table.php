@@ -11,12 +11,14 @@ class CreateCouponsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->unique();
             $table->string('type');
+            $table->boolean('status')->default(0);
             $table->integer('value')->nullable();
             $table->integer('percent_off')->nullable();
             $table->timestamps();
